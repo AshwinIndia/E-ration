@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ration Card Management System{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .govt-header {
+            background-color: #004080;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .navbar {
+            background-color: #e8f4f8;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="govt-header">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Emblem_of_India.svg/800px-Emblem_of_India.svg.png"
+            alt="Govt Logo" width="50" class="me-3">
+        <h1 class="d-inline">Government of India</h1>
+    </header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Ration Card System</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+                <a class="nav-link" href="{% url 'apply_for_card' %}">Apply</a>
+                <a class="nav-link" href="{% url 'check_status' %}">Check Status</a>
+                <a class="nav-link" href="{% url 'distribution_history' %}">Distribution History</a>
+                <a class="nav-link" href="{% url 'file_complaint' %}">File Complaint</a>
+                {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'user_logout' %}">Logout</a>
+
+                {% else %}
+                    <a class="nav-link" href="{% url 'user_login' %}">Login</a>
+                {% endif %}
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer class="text-center mt-4">
+        <p>&copy; 2024 Government of India. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

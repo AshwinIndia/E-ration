@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Ration Card Details{% endblock %}
+
+{% block content %}
+<h2>Ration Card Details</h2>
+<p>Card Number: {{ ration_card.card_number }}</p>
+<p>Card Type: {{ ration_card.get_card_type_display }}</p>
+<p>Status: {{ ration_card.get_status_display }}</p>
+<p>Fair Price Shop: {{ ration_card.fair_price_shop }}</p>
+
+<h3>Family Members</h3>
+<ul>
+    {% for member in family_members %}
+    <li>{{ member.name }} ({{ member.get_gender_display }}, {{ member.age }} years old)</li>
+    {% empty %}
+    <li>No family members added yet.</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'add_family_member' ration_card.pk %}" class="btn btn-primary">Add Family Member</a>
+{% endblock %}

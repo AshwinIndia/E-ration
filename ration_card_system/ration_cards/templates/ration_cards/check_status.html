@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Check Ration Card Status{% endblock %}
+
+{% block content %}
+<h2>Ration Card Status</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Card Number</th>
+            <th>Card Type</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for card in ration_cards %}
+        <tr>
+            <td>{{ card.card_number }}</td>
+            <td>{{ card.get_card_type_display }}</td>
+            <td>{{ card.get_status_display }}</td>
+            <td>
+                <a href="{% url 'ration_card_detail' card.pk %}" class="btn btn-sm btn-info">View Details</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No ration cards found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
